@@ -4,6 +4,7 @@ import com.Travel.Travel.api.model.request.TicketDtoRequest;
 import com.Travel.Travel.api.model.response.TicketDtoResponse;
 import com.Travel.Travel.infraestructure.abstract_services.ITicketService;
 import com.Travel.Travel.infraestructure.services.TicketService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class TicketController {
     }
 
     @PostMapping
-    public ResponseEntity<TicketDtoResponse> post(@RequestBody @Validated TicketDtoRequest request){
+    public ResponseEntity<TicketDtoResponse> post(@Valid @RequestBody @Validated TicketDtoRequest request){
         return ResponseEntity.ok(ticketService.create(request));
     }
 
@@ -32,7 +33,7 @@ public class TicketController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<TicketDtoResponse> put(@RequestBody TicketDtoRequest request,@PathVariable UUID id){
+    public ResponseEntity<TicketDtoResponse> put(@Valid @RequestBody TicketDtoRequest request,@PathVariable UUID id){
         return ResponseEntity.ok(ticketService.update(request,id)) ;
     }
 

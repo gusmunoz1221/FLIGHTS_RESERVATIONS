@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Transactional
+@Transactional(readOnly = true)//CLASES DE TIPO CATALOGOS
 @Service
 public class FlyService implements IFlyService {
     private final FlyRepository flyRepository;

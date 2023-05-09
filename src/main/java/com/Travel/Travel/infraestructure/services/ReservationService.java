@@ -10,7 +10,9 @@ import com.Travel.Travel.domain.repositories.CustomerRepository;
 import com.Travel.Travel.domain.repositories.HotelRepository;
 import com.Travel.Travel.domain.repositories.ReservationRepository;
 import com.Travel.Travel.infraestructure.abstract_services.IReservationService;
+import com.Travel.Travel.infraestructure.helpers.BlackListHelper;
 import com.Travel.Travel.infraestructure.helpers.CustomerHelper;
+import com.Travel.Travel.util.exceptions.IdNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
@@ -26,22 +28,28 @@ public class ReservationService implements IReservationService {
     private final HotelRepository hotelRepository;
     private final ReservationMapper reservationMapper;
     private final CustomerHelper customerHelper;
+    private final BlackListHelper blackListHelper;
+
     public static final BigDecimal changes_price_percentage = BigDecimal.valueOf(0.20);
 
-    public ReservationService(ReservationRepository reservationRepository, CustomerRepository customerRepository, HotelRepository hotelRepository, ReservationMapper reservationMapper, CustomerHelper customerHelper) {
+    public ReservationService(ReservationRepository reservationRepository, CustomerRepository customerRepository, HotelRepository hotelRepository, ReservationMapper reservationMapper, CustomerHelper customerHelper, BlackListHelper blackListHelper) {
         this.reservationRepository = reservationRepository;
         this.customerRepository = customerRepository;
         this.hotelRepository = hotelRepository;
         this.reservationMapper = reservationMapper;
         this.customerHelper = customerHelper;
+        this.blackListHelper = blackListHelper;
     }
 
 
     @Override
     public ReservationDtoResponse create(ReservationDtoRequest reservationDtoRequest) {
+        blackListHelper.isBlackListCustomer(reservationDtoRequest.getIdClient());//valida si el cliente esta en la lista negra
 
-        HotelEntity hotelEntity = hotelRepository.findById(reservationDtoRequest.getIdHotel()).orElseThrow();
-        CustomerEntity customerEntity = customerRepository.findById(reservationDtoRequest.getIdClient()).orElseThrow();
+        HotelEntity hotelEntity = hotelRepository.findById(reservationDtoRequest.getIdHotel())
+                                                 .orElseThrow(()-> new IdNotFoundException("hotel"));
+        CustomerEntity customerEntity = customerRepository.findById(reservationDtoRequest.getIdClient())
+                                                          .orElseThrow(()-> new IdNotFoundException("customer"));
         ReservationEntity reservationEntity = ReservationEntity.builder()
                                                                 .id(UUID.randomUUID())
                                                                 .hotel(hotelEntity)
@@ -60,15 +68,18 @@ public class ReservationService implements IReservationService {
 
     @Override
     public ReservationDtoResponse read(UUID id) {
-        ReservationEntity reservationEntity = reservationRepository.findById(id).orElseThrow();
+        ReservationEntity reservationEntity = reservationRepository.findById(id)
+                                                                    .orElseThrow(()-> new IdNotFoundException("reservation"));
         return reservationMapper.reservationEntityToDtoResponse(reservationEntity);
     }
 
     @Override
     public ReservationDtoResponse update(ReservationDtoRequest reservationDtoRequest, UUID id) {
 
-        HotelEntity hotelEntity = hotelRepository.findById(reservationDtoRequest.getIdHotel()).orElseThrow();
-        ReservationEntity reservationEntity = reservationRepository.findById(id).orElseThrow();
+        HotelEntity hotelEntity = hotelRepository.findById(reservationDtoRequest.getIdHotel())
+                                                 .orElseThrow(()-> new IdNotFoundException("hotel"));
+        ReservationEntity reservationEntity = reservationRepository.findById(id)
+                                                                   .orElseThrow(()-> new IdNotFoundException("reservation"));
             reservationEntity.setHotel(hotelEntity);
             reservationEntity.setTotalDays(reservationDtoRequest.getTotalDays());
             reservationEntity.setDateTimeReservation(LocalDateTime.now());
@@ -81,14 +92,16 @@ public class ReservationService implements IReservationService {
 
     @Override
     public void delete(UUID id) {
-        ReservationEntity reservationEntity = reservationRepository.findById(id).orElseThrow();
+        ReservationEntity reservationEntity = reservationRepository.findById(id)
+                                                                   .orElseThrow(()-> new IdNotFoundException("reservation"));
         customerHelper.decrease(reservationEntity.getCustomer().getDni(),ReservationService.class);
         reservationRepository.delete(reservationEntity);
     }
 
     @Override
     public BigDecimal findPrice(Long idHotel) {
-        HotelEntity hotelEntity  = hotelRepository.findById(idHotel).orElseThrow();
+        HotelEntity hotelEntity  = hotelRepository.findById(idHotel)
+                                                  .orElseThrow(()-> new IdNotFoundException("hotel"));
         return hotelEntity.getPrice().add(hotelEntity.getPrice().multiply(changes_price_percentage));
     }
 }

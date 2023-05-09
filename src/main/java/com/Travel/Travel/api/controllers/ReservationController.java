@@ -4,6 +4,7 @@ import com.Travel.Travel.api.model.request.ReservationDtoRequest;
 import com.Travel.Travel.api.model.response.ReservationDtoResponse;
 import com.Travel.Travel.infraestructure.abstract_services.IReservationService;
 import com.Travel.Travel.infraestructure.services.ReservationService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
@@ -21,7 +22,7 @@ public class ReservationController {
     }
 
     @PostMapping
-    public ResponseEntity<ReservationDtoResponse> post(@RequestBody ReservationDtoRequest request){
+    public ResponseEntity<ReservationDtoResponse> post(@Valid @RequestBody ReservationDtoRequest request){
         return ResponseEntity.ok(reservationService.create(request));
     }
 
@@ -31,7 +32,7 @@ public class ReservationController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<ReservationDtoResponse> put(@RequestBody ReservationDtoRequest request,@PathVariable UUID id){
+    public ResponseEntity<ReservationDtoResponse> put(@Valid @RequestBody ReservationDtoRequest request,@PathVariable UUID id){
         return ResponseEntity.ok(reservationService.update(request,id));
     }
 
