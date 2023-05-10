@@ -1,0 +1,3 @@
+sin interfaz grafica ------>  http://localhost:8080/best_travel/v3/api-docs
+
+con interfaz grafica ------>  http://localhost:8080/best_travel/swagger-ui/index.html
