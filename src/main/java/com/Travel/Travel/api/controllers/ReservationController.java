@@ -11,13 +11,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import jdk.jfr.ContentType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @RequestMapping("/reservation")
@@ -60,7 +58,10 @@ public class ReservationController {
 
     @Operation(summary = "return a key with hotel price, with id passed")
     @GetMapping // devuelve una clave con su valor
-    public ResponseEntity<Map<String, BigDecimal>> getFlyPrice(@RequestParam Long idHotel){
-        return ResponseEntity.ok(Collections.singletonMap("hotelPrice",reservationService.findPrice(idHotel)));
+    public ResponseEntity<Map<String, BigDecimal>> getFlyPrice(@RequestParam Long idHotel,
+                                                               @RequestHeader(required = false) Currency currency){
+        if(Objects.isNull(currency))
+            currency=Currency.getInstance("USD");
+        return ResponseEntity.ok(Collections.singletonMap("ticketPrice",reservationService.findPrice(idHotel,currency)));
     }
 }

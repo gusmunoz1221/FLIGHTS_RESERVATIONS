@@ -22,7 +22,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/ticket")
 @Tag(name = "Ticket")
-public class TicketController {
+public class     TicketController {
     private final ITicketService ticketService;
 
     public TicketController(TicketService ticketService) {

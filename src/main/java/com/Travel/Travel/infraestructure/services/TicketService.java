@@ -29,7 +29,6 @@ public class TicketService implements ITicketService {
     private final TicketMapper ticketMapper;
     private final CustomerHelper customerHelper;
     private final BlackListHelper blackListHelper;
-    //declaramos una variable global estatica
     public static final BigDecimal changes_price_percentage = BigDecimal.valueOf(0.25);
 
     public TicketService(FlyRepository flyRepository, CustomerRepository customerRepository, TicketRepository ticketRepository, TicketMapper ticketMapper, CustomerHelper customerHelper, BlackListHelper blackListHelper) {

@@ -5,11 +5,14 @@ import com.Travel.Travel.domain.mappers.FlyMapper;
 import com.Travel.Travel.domain.repositories.FlyRepository;
 import com.Travel.Travel.infraestructure.abstract_services.IFlyService;
 import com.Travel.Travel.util.sortType;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.reactive.function.client.WebClient;
+
 import java.math.BigDecimal;
 import java.util.Set;
 import java.util.stream.Collectors;
