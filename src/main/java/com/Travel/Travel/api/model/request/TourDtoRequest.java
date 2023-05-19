@@ -1,5 +1,6 @@
 package com.Travel.Travel.api.model.request;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -20,4 +21,6 @@ public class TourDtoRequest {
     private Set<TourFlyDtoRequest> flights;
     @Size(min = 1 , message = "min hotels tour per tour")
     private Set<TourHotelDtoRequest> hotels;
+    @Email(message = "invalid email")
+    private String email;
 }

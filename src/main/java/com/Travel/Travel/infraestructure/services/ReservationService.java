@@ -14,6 +14,7 @@ import com.Travel.Travel.infraestructure.abstract_services.IReservationService;
 import com.Travel.Travel.infraestructure.helpers.ApiCurrencyConnectorHelper;
 import com.Travel.Travel.infraestructure.helpers.BlackListHelper;
 import com.Travel.Travel.infraestructure.helpers.CustomerHelper;
+import com.Travel.Travel.infraestructure.helpers.EmailHelper;
 import com.Travel.Travel.util.exceptions.IdNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Currency;
+import java.util.Objects;
 import java.util.UUID;
 
 @Transactional
@@ -35,10 +37,11 @@ public class ReservationService implements IReservationService {
     private final CustomerHelper customerHelper;
     private final BlackListHelper blackListHelper;
     private final ApiCurrencyConnectorHelper currencyConnectorHelper;
+    private final EmailHelper emailHelper;
 
     public static final BigDecimal changes_price_percentage = BigDecimal.valueOf(0.20);
 
-    public ReservationService(ReservationRepository reservationRepository, CustomerRepository customerRepository, HotelRepository hotelRepository, ReservationMapper reservationMapper, CustomerHelper customerHelper, BlackListHelper blackListHelper, ApiCurrencyConnectorHelper currencyConnectorHelper) {
+    public ReservationService(ReservationRepository reservationRepository, CustomerRepository customerRepository, HotelRepository hotelRepository, ReservationMapper reservationMapper, CustomerHelper customerHelper, BlackListHelper blackListHelper, ApiCurrencyConnectorHelper currencyConnectorHelper, EmailHelper emailHelper) {
         this.reservationRepository = reservationRepository;
         this.customerRepository = customerRepository;
         this.hotelRepository = hotelRepository;
@@ -46,6 +49,7 @@ public class ReservationService implements IReservationService {
         this.customerHelper = customerHelper;
         this.blackListHelper = blackListHelper;
         this.currencyConnectorHelper = currencyConnectorHelper;
+        this.emailHelper = emailHelper;
     }
 
 
@@ -70,6 +74,8 @@ public class ReservationService implements IReservationService {
 
         reservationRepository.save(reservationEntity);
         customerHelper.increase(customerEntity.getDni(),ReservationService.class);
+        if(Objects.nonNull(reservationDtoRequest.getEmail()))
+            emailHelper.sendMail(reservationDtoRequest.getEmail(),customerEntity.getFullName(),"reservation");
         return reservationMapper.reservationEntityToDtoResponse(reservationEntity);
     }
 

@@ -12,12 +12,14 @@ import com.Travel.Travel.domain.repositories.TicketRepository;
 import com.Travel.Travel.infraestructure.abstract_services.ITicketService;
 import com.Travel.Travel.infraestructure.helpers.BlackListHelper;
 import com.Travel.Travel.infraestructure.helpers.CustomerHelper;
+import com.Travel.Travel.infraestructure.helpers.EmailHelper;
 import com.Travel.Travel.util.BestTravelUtil;
 import com.Travel.Travel.util.exceptions.IdNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -29,15 +31,17 @@ public class TicketService implements ITicketService {
     private final TicketMapper ticketMapper;
     private final CustomerHelper customerHelper;
     private final BlackListHelper blackListHelper;
+    private final EmailHelper emailHelper;
     public static final BigDecimal changes_price_percentage = BigDecimal.valueOf(0.25);
 
-    public TicketService(FlyRepository flyRepository, CustomerRepository customerRepository, TicketRepository ticketRepository, TicketMapper ticketMapper, CustomerHelper customerHelper, BlackListHelper blackListHelper) {
+    public TicketService(FlyRepository flyRepository, CustomerRepository customerRepository, TicketRepository ticketRepository, TicketMapper ticketMapper, CustomerHelper customerHelper, BlackListHelper blackListHelper, EmailHelper emailHelper) {
         this.flyRepository = flyRepository;
         this.customerRepository = customerRepository;
         this.ticketRepository = ticketRepository;
         this.ticketMapper = ticketMapper;
         this.customerHelper = customerHelper;
         this.blackListHelper = blackListHelper;
+        this.emailHelper = emailHelper;
     }
     @Override
     public TicketDtoResponse create(TicketDtoRequest ticketDtoRequest) {
@@ -60,6 +64,9 @@ public class TicketService implements ITicketService {
 
          ticketRepository.save(ticketEntity); // persistimos el ticket en la base de datos
         customerHelper.increase(customerEntity.getDni(),TicketService.class);
+        if(Objects.nonNull(ticketDtoRequest.getEmail()))
+            emailHelper.sendMail(ticketDtoRequest.getEmail(),customerEntity.getFullName(),"ticket");
+
         return ticketMapper.ticketEntityToDtoResponse(ticketEntity);
     }
 

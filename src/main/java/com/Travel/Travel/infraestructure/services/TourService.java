@@ -10,12 +10,14 @@ import com.Travel.Travel.domain.repositories.TourRepository;
 import com.Travel.Travel.infraestructure.abstract_services.ITourService;
 import com.Travel.Travel.infraestructure.helpers.BlackListHelper;
 import com.Travel.Travel.infraestructure.helpers.CustomerHelper;
+import com.Travel.Travel.infraestructure.helpers.EmailHelper;
 import com.Travel.Travel.infraestructure.helpers.TourHelper;
 import com.Travel.Travel.util.exceptions.IdNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -29,8 +31,9 @@ public class TourService implements ITourService {
     private final TourHelper tourHelper;
     private final CustomerHelper customerHelper;
     private final BlackListHelper blackListHelper;
+    private final EmailHelper emailHelper;
 
-    public TourService(TourRepository tourRepository, FlyRepository flyRepository, HotelRepository hotelRepository, CustomerRepository customerRepository, TourHelper tourHelper, CustomerHelper customerHelper, BlackListHelper blackListHelper) {
+    public TourService(TourRepository tourRepository, FlyRepository flyRepository, HotelRepository hotelRepository, CustomerRepository customerRepository, TourHelper tourHelper, CustomerHelper customerHelper, BlackListHelper blackListHelper, EmailHelper emailHelper) {
         this.tourRepository = tourRepository;
         this.flyRepository = flyRepository;
         this.hotelRepository = hotelRepository;
@@ -38,6 +41,7 @@ public class TourService implements ITourService {
         this.tourHelper = tourHelper;
         this.customerHelper = customerHelper;
         this.blackListHelper = blackListHelper;
+        this.emailHelper = emailHelper;
     }
 
     @Override
@@ -66,6 +70,9 @@ public class TourService implements ITourService {
                                             .build();
         tourRepository.save(tourEntity);
         customerHelper.increase(customerEntity.getDni(),TourService.class);
+
+        if(Objects.nonNull(tourDtoRequest.getEmail()))
+            emailHelper.sendMail(tourDtoRequest.getEmail(),customerEntity.getFullName(),"tour");
         return TourDtoResponse.builder()
                                 .reservationIds(tourEntity.getReservations().stream()
                                                                             .map(ReservationEntity::getId)
