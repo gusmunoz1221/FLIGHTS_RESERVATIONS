@@ -2,6 +2,7 @@ package com.Travel.Travel.infraestructure.abstract_services;
 
 import com.Travel.Travel.api.model.request.TourDtoRequest;
 import com.Travel.Travel.api.model.response.TourDtoResponse;
+
 import java.util.UUID;
 
 public interface ITourService extends SimpleCrudService<TourDtoRequest, TourDtoResponse,Long>{

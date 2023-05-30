@@ -2,7 +2,7 @@ package com.Travel.Travel.infraestructure.services;
 
 import com.Travel.Travel.api.model.response.HotelDtoResponse;
 import com.Travel.Travel.domain.mappers.HotelMapper;
-import com.Travel.Travel.domain.repositories.HotelRepository;
+import com.Travel.Travel.domain.repositories.jpa.HotelRepository;
 import com.Travel.Travel.infraestructure.abstract_services.IHotelService;
 import com.Travel.Travel.util.sortType;
 import org.springframework.data.domain.Page;
@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.math.BigDecimal;
 import java.util.Set;
 import java.util.stream.Collectors;

@@ -1,7 +1,7 @@
 package com.Travel.Travel.infraestructure.helpers;
 
-import com.Travel.Travel.domain.entities.CustomerEntity;
-import com.Travel.Travel.domain.repositories.CustomerRepository;
+import com.Travel.Travel.domain.entities.jpa.CustomerEntity;
+import com.Travel.Travel.domain.repositories.jpa.CustomerRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

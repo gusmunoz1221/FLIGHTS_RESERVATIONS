@@ -1,12 +1,13 @@
 package com.Travel.Travel.infraestructure.services;
 
-import com.Travel.Travel.domain.entities.CustomerEntity;
-import com.Travel.Travel.domain.repositories.CustomerRepository;
+import com.Travel.Travel.domain.entities.jpa.CustomerEntity;
+import com.Travel.Travel.domain.repositories.jpa.CustomerRepository;
 import com.Travel.Travel.infraestructure.abstract_services.IReportService;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

@@ -1,6 +1,6 @@
-package com.Travel.Travel.domain.repositories;
+package com.Travel.Travel.domain.repositories.jpa;
 
-import com.Travel.Travel.domain.entities.FlyEntity;
+import com.Travel.Travel.domain.entities.jpa.FlyEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

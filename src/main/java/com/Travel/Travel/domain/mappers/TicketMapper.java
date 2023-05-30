@@ -2,7 +2,7 @@ package com.Travel.Travel.domain.mappers;
 
 import com.Travel.Travel.api.model.response.FlyDtoResponse;
 import com.Travel.Travel.api.model.response.TicketDtoResponse;
-import com.Travel.Travel.domain.entities.TicketEntity;
+import com.Travel.Travel.domain.entities.jpa.TicketEntity;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 

@@ -2,13 +2,13 @@ package com.Travel.Travel.infraestructure.services;
 
 import com.Travel.Travel.api.model.request.ReservationDtoRequest;
 import com.Travel.Travel.api.model.response.ReservationDtoResponse;
-import com.Travel.Travel.domain.entities.CustomerEntity;
-import com.Travel.Travel.domain.entities.HotelEntity;
-import com.Travel.Travel.domain.entities.ReservationEntity;
+import com.Travel.Travel.domain.entities.jpa.CustomerEntity;
+import com.Travel.Travel.domain.entities.jpa.HotelEntity;
+import com.Travel.Travel.domain.entities.jpa.ReservationEntity;
 import com.Travel.Travel.domain.mappers.ReservationMapper;
-import com.Travel.Travel.domain.repositories.CustomerRepository;
-import com.Travel.Travel.domain.repositories.HotelRepository;
-import com.Travel.Travel.domain.repositories.ReservationRepository;
+import com.Travel.Travel.domain.repositories.jpa.CustomerRepository;
+import com.Travel.Travel.domain.repositories.jpa.HotelRepository;
+import com.Travel.Travel.domain.repositories.jpa.ReservationRepository;
 import com.Travel.Travel.infraestructure.DTOs.CurrencyDTO;
 import com.Travel.Travel.infraestructure.abstract_services.IReservationService;
 import com.Travel.Travel.infraestructure.helpers.ApiCurrencyConnectorHelper;
@@ -19,6 +19,7 @@ import com.Travel.Travel.util.exceptions.IdNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

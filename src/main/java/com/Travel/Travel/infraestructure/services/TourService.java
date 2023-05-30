@@ -2,11 +2,11 @@ package com.Travel.Travel.infraestructure.services;
 
 import com.Travel.Travel.api.model.request.TourDtoRequest;
 import com.Travel.Travel.api.model.response.TourDtoResponse;
-import com.Travel.Travel.domain.entities.*;
-import com.Travel.Travel.domain.repositories.CustomerRepository;
-import com.Travel.Travel.domain.repositories.FlyRepository;
-import com.Travel.Travel.domain.repositories.HotelRepository;
-import com.Travel.Travel.domain.repositories.TourRepository;
+import com.Travel.Travel.domain.entities.jpa.*;
+import com.Travel.Travel.domain.repositories.jpa.CustomerRepository;
+import com.Travel.Travel.domain.repositories.jpa.FlyRepository;
+import com.Travel.Travel.domain.repositories.jpa.HotelRepository;
+import com.Travel.Travel.domain.repositories.jpa.TourRepository;
 import com.Travel.Travel.infraestructure.abstract_services.ITourService;
 import com.Travel.Travel.infraestructure.helpers.BlackListHelper;
 import com.Travel.Travel.infraestructure.helpers.CustomerHelper;
@@ -15,6 +15,7 @@ import com.Travel.Travel.infraestructure.helpers.TourHelper;
 import com.Travel.Travel.util.exceptions.IdNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Objects;

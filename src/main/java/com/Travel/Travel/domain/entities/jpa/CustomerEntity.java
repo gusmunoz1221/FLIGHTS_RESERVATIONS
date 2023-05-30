@@ -1,7 +1,8 @@
-package com.Travel.Travel.domain.entities;
+package com.Travel.Travel.domain.entities.jpa;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.util.Set;
 
 @NoArgsConstructor

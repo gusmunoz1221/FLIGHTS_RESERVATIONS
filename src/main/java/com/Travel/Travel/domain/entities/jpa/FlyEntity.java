@@ -1,9 +1,8 @@
-package com.Travel.Travel.domain.entities;
+package com.Travel.Travel.domain.entities.jpa;
 
 import com.Travel.Travel.util.AeroLine;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.math.BigDecimal;
 import java.util.Set;
 

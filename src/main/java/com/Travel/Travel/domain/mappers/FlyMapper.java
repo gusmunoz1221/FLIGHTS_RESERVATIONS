@@ -1,7 +1,7 @@
 package com.Travel.Travel.domain.mappers;
 
 import com.Travel.Travel.api.model.response.FlyDtoResponse;
-import com.Travel.Travel.domain.entities.FlyEntity;
+import com.Travel.Travel.domain.entities.jpa.FlyEntity;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 

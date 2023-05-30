@@ -2,6 +2,7 @@ package com.Travel.Travel.api.controllers;
 
 import com.Travel.Travel.api.model.response.FlyDtoResponse;
 import com.Travel.Travel.infraestructure.abstract_services.IFlyService;
+import com.Travel.Travel.util.annotation.Notify;
 import com.Travel.Travel.util.sortType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,11 +23,10 @@ public class FlyController {
         this.flyService = flyService;
     }
 
-    //el requestHeader es opcional
-
     @Operation(summary = "returns a flight catalog with page number and page size," +
                          "sortType is optional NONE,LOGGER AND UPPER")
     @GetMapping
+    @Notify("GET Fly")
     public ResponseEntity<Page<FlyDtoResponse>> getAll( @RequestParam Integer page,
                                                         @RequestParam Integer size,
                                                         @RequestHeader(required = false) sortType sort

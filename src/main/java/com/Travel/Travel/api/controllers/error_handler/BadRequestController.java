@@ -4,6 +4,7 @@ import com.Travel.Travel.api.model.response.BaseErrorResponse;
 import com.Travel.Travel.api.model.response.ErrorResponse;
 import com.Travel.Travel.api.model.response.ErrorsResponse;
 import com.Travel.Travel.util.exceptions.IdNotFoundException;
+import com.Travel.Travel.util.exceptions.UsernameNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,8 +18,8 @@ import java.util.ArrayList;
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class BadRequestController {
 
-    @ExceptionHandler(IdNotFoundException.class)
-    public BaseErrorResponse handleIdNotFound(IdNotFoundException exception){
+    @ExceptionHandler({IdNotFoundException.class,UsernameNotFoundException.class})
+    public BaseErrorResponse handleIdNotFound(RuntimeException exception){
         return ErrorResponse.builder()
                             .message(exception.getMessage())
                             .status(HttpStatus.BAD_REQUEST.name())

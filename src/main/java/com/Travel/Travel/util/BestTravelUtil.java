@@ -1,6 +1,8 @@
 package com.Travel.Travel.util;
 
-import java.time.LocalDate;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Random;
 
@@ -21,4 +23,12 @@ public class BestTravelUtil {
         return now.plusHours(randomHours);
     }
 
+    public static void writeNotification(String text, String path)throws IOException {
+        var fileWriter = new FileWriter(path,true);
+        var bufferedWriter = new BufferedWriter(fileWriter);
+        try(fileWriter; bufferedWriter){
+            bufferedWriter.write(text);
+            bufferedWriter.newLine();
+        }
+    }
 }

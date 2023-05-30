@@ -1,6 +1,6 @@
-package com.Travel.Travel.domain.repositories;
+package com.Travel.Travel.domain.repositories.jpa;
 
-import com.Travel.Travel.domain.entities.HotelEntity;
+import com.Travel.Travel.domain.entities.jpa.HotelEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;

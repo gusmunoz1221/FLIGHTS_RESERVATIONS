@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ReportController {
     private final IReportService reportService;
     //ccuando el navegador lo lea, va hacer automaticamente la descarga
-
     private static MediaType FORCE_DOWNLOAD = new MediaType("application","force-download");
     private static String FORCE_DOWNLOAD_HEADER_VALUE = "attachment; filename = report.xlsx";
 

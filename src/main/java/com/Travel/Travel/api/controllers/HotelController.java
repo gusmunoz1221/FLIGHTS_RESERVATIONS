@@ -3,12 +3,14 @@ package com.Travel.Travel.api.controllers;
 import com.Travel.Travel.api.model.response.HotelDtoResponse;
 import com.Travel.Travel.infraestructure.abstract_services.IHotelService;
 import com.Travel.Travel.infraestructure.services.HotelService;
+import com.Travel.Travel.util.annotation.Notify;
 import com.Travel.Travel.util.sortType;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.Set;
@@ -26,6 +28,7 @@ public class HotelController {
     @Operation(summary = "returns a hotels catalog with page number and page size," +
                          "sortType is optional NONE,LOGGER AND UPPER")
     @GetMapping
+    @Notify("GET Hotel")
     public ResponseEntity<Page<HotelDtoResponse>> getAll(@RequestParam Integer page,
                                                          @RequestParam Integer size,
                                                          @RequestHeader(required = false) sortType sort

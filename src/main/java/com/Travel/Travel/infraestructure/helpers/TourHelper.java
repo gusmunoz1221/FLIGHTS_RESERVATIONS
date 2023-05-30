@@ -1,8 +1,8 @@
 package com.Travel.Travel.infraestructure.helpers;
 
-import com.Travel.Travel.domain.entities.*;
-import com.Travel.Travel.domain.repositories.ReservationRepository;
-import com.Travel.Travel.domain.repositories.TicketRepository;
+import com.Travel.Travel.domain.entities.jpa.*;
+import com.Travel.Travel.domain.repositories.jpa.ReservationRepository;
+import com.Travel.Travel.domain.repositories.jpa.TicketRepository;
 import com.Travel.Travel.infraestructure.services.ReservationService;
 import com.Travel.Travel.infraestructure.services.TicketService;
 import com.Travel.Travel.util.BestTravelUtil;

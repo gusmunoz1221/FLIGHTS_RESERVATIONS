@@ -2,7 +2,7 @@ package com.Travel.Travel.domain.mappers;
 
 import com.Travel.Travel.api.model.response.HotelDtoResponse;
 import com.Travel.Travel.api.model.response.ReservationDtoResponse;
-import com.Travel.Travel.domain.entities.ReservationEntity;
+import com.Travel.Travel.domain.entities.jpa.ReservationEntity;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 

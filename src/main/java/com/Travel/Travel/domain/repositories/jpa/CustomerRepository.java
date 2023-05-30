@@ -1,6 +1,6 @@
-package com.Travel.Travel.domain.repositories;
+package com.Travel.Travel.domain.repositories.jpa;
 
-import com.Travel.Travel.domain.entities.CustomerEntity;
+import com.Travel.Travel.domain.entities.jpa.CustomerEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

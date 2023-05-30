@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+
+  document-db:
+    image: mongo:6.0.4
+    restart: always
+    container_name: best_travel_users
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: gustavo
+      MONGO_INITDB_ROOT_PASSWORD: gustavo
+      MONGO_INITDB_DATABASE: users
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./db/noSQL/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
